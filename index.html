@@ -1,17 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For Zubiya</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Zubiya</title>
+  <meta name="description" content="A little space to pause — for Zubiya, on the days that feel heavy.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Ambient Background ===== -->
+  <div class="ambient-background">
+    <div class="blur-glow glow-1"></div>
+    <div class="blur-glow glow-2"></div>
+    <div class="blur-glow glow-3"></div>
+  </div>
+
+  <!-- ===== Floating Hearts ===== -->
+  <div id="hearts-container" class="hearts-container"></div>
+
+  <!-- ===== Music Player ===== -->
+  <div class="music-player" id="music-player">
+    <audio id="bg-audio" loop preload="auto">
+      <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3" type="audio/mp3">
+    </audio>
+    <button id="music-toggle" class="music-btn" aria-label="Toggle ambient music">
+      <i data-lucide="volume-x" id="music-icon-off"></i>
+      <i data-lucide="volume-2" id="music-icon-on" style="display:none;"></i>
+    </button>
+  </div>
+
+  <!-- ===== Main Content ===== -->
+  <main class="main-content">
+
+    <!-- ─── Opening Screen ─── -->
+    <section class="section-opening reveal" id="opening">
+      <h1 class="opening-title">
+        For Zubiya
+        <span class="opening-subtitle">— on the days that feel heavy</span>
+      </h1>
+      <p class="opening-text">This is your little space to pause.</p>
+      <div class="scroll-indicator">
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ─── I See You ─── -->
+    <section class="section-text reveal" id="i-see-you">
+      <h2 class="section-heading">Hey you... I see you.</h2>
+      <div class="text-body">
+        <p>I know how incredibly draining the office can be. I see the tiredness in you after a long, stressful day, and I see how much you push yourself anyway.</p>
+        <p>You give so much energy to everyone and everything else. You forget to give yourself a break.</p>
+        <p>This is just a little reminder that when you're with me, you don't have to try. You can just drop your bags, exhale, and rest. I'm here to take care of you.</p>
+      </div>
+    </section>
+
+    <!-- ─── No Pressure. Just Care. ─── -->
+    <section class="section-care reveal" id="how-much">
+      <div class="divider-line"></div>
+      <h2 class="section-heading section-heading-lg">No Pressure. Just Care.</h2>
+      <div class="care-card">
+        <p>Whenever the days feel too long, the tasks feel too heavy, and you just want to curl up and hide from the world, please remember you have a safe place waiting for you right here.</p>
+        <p>I want you to know just how special you are to me. I admire the way your mind works, the warmth of your smile, and every beautiful little piece that makes you who you are.</p>
+        <p>I never expect you to be energetic, perfectly put together, or to have everything figured out. I just adore you, exactly as you are right now.</p>
+        <p class="care-highlight">Take all the time and space you need. I'm just happy to be in your corner. ❤️</p>
+      </div>
+      <div class="divider-line"></div>
+    </section>
+
+    <!-- ─── Things I Admire ─── -->
+    <section class="section-admire" id="admire">
+      <h2 class="admire-main-heading reveal">I Just Want You To Know...</h2>
+      <div class="admire-items" id="admire-items"></div>
+    </section>
+
+    <!-- ─── Quiet Support ─── -->
+    <section class="section-quiet reveal" id="quiet-support">
+      <div class="divider-line"></div>
+      <p class="quiet-quote">"You don't have to be strong all the time."</p>
+      <p class="quiet-sub">It's okay to just breathe, pause, and take a moment for yourself.</p>
+      <div class="divider-line"></div>
+    </section>
+
+    <!-- ─── Photo Album ─── -->
+    <section class="section-album reveal" id="photo-album"></section>
+
+    <!-- ─── Plans Board ─── -->
+    <section class="section-plans reveal" id="plans-board"></section>
+
+    <!-- ─── Hidden Message ─── -->
+    <section class="section-hidden reveal" id="hidden-message">
+      <button class="hidden-toggle" id="msg-toggle">Click if you need this today</button>
+      <div class="hidden-content" id="hidden-msg">
+        <div class="hidden-card">
+          <p>Whatever happens, whatever you are feeling, I am here. You don't have to carry every burden alone, and you don't have to figure everything out right this second.</p>
+          <p class="mt-6">Take it one step at a time. I am proud of the person you are—not just because of what you achieve or how hard you work, but because of your beautiful heart. I'm always on your side. ❤️</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Ending ─── -->
+    <footer class="section-ending reveal" id="ending">
+      <div class="ending-line"></div>
+      <h3 class="ending-heading">No matter how your days go,<br> I'm always by your side.</h3>
+      <p class="ending-love reveal">I simply adore you, Zubiya.</p>
+      <div class="ending-credit reveal">Developed with love by Hammad</div>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>
