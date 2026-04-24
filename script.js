@@ -30,6 +30,7 @@ const NOTE_COLORS = ["note-yellow", "note-pink", "note-purple", "note-green", "n
 document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   createFloatingHearts();
+  createFloatingWords();
   renderAdmireSection();
   initMusicPlayer();
   initHiddenMessage();
@@ -76,14 +77,15 @@ function observeNew(el) {
    ============================================================ */
 function createFloatingHearts() {
   const container = document.getElementById("hearts-container");
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 24; i++) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    const size = Math.random() * 18 + 10;
+    const size = Math.random() * 24 + 10;
     svg.setAttribute("viewBox", "0 0 24 24");
     svg.setAttribute("width", size);
     svg.setAttribute("height", size);
-    svg.setAttribute("fill", "currentColor");
-    svg.setAttribute("stroke", "none");
+    svg.setAttribute("fill", size > 20 ? "currentColor" : "none");
+    svg.setAttribute("stroke", "currentColor");
+    svg.setAttribute("stroke-width", "1.5");
     svg.innerHTML = '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>';
 
     const div = document.createElement("div");
@@ -98,11 +100,45 @@ function createFloatingHearts() {
     const xEnd = (Math.random() * 100 - 50) + "px";
     div.animate(
       [
-        { transform: "translate(0,0)", opacity: 0 },
-        { transform: `translate(${xMid},-200px)`, opacity: 0.7, offset: 0.5 },
-        { transform: `translate(${xEnd},-400px)`, opacity: 0 }
+        { transform: "translate(0,0) rotate(-10deg)", opacity: 0 },
+        { transform: `translate(${xMid},-150px) rotate(10deg)`, opacity: 0.6, offset: 0.5 },
+        { transform: `translate(${xEnd},-300px) rotate(-10deg)`, opacity: 0 }
       ],
-      { duration: dur, iterations: Infinity, delay: Math.random() * 5000, easing: "linear" }
+      { duration: dur, iterations: Infinity, delay: Math.random() * 8000, easing: "ease-in-out" }
+    );
+  }
+}
+
+function createFloatingWords() {
+  const words = ["beautiful", "loved", "precious", "my heart", "always", "safe here", "adore you"];
+  const container = document.getElementById("words-container");
+  if (!container) return;
+  
+  for (let i = 0; i < 15; i++) {
+    const wordIndex = Math.floor(Math.random() * words.length);
+    const div = document.createElement("div");
+    div.className = "floating-word";
+    div.textContent = words[wordIndex];
+    div.style.left = Math.random() * 90 + "vw";
+    div.style.top = (Math.random() * 120 + 20) + "vh";
+    
+    // Vary font size slightly
+    const scale = Math.random() * 0.5 + 0.8;
+    div.style.transform = `scale(${scale})`;
+    
+    container.appendChild(div);
+
+    const dur = (Math.random() * 15 + 15) * 1000;
+    const xMid = (Math.random() * 40 - 20) + "px";
+    const xEnd = (Math.random() * 60 - 30) + "px";
+    
+    div.animate(
+      [
+        { transform: `scale(${scale}) translate(0,0)`, opacity: 0 },
+        { transform: `scale(${scale}) translate(${xMid}, -100px)`, opacity: 0.5, offset: 0.5 },
+        { transform: `scale(${scale}) translate(${xEnd}, -250px)`, opacity: 0 }
+      ],
+      { duration: dur, iterations: Infinity, delay: Math.random() * 10000, easing: "linear" }
     );
   }
 }
