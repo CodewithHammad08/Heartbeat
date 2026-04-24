@@ -35,7 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initHiddenMessage();
   initPhotoAlbum();
   initPlansBoard();
-  lucide.createIcons();
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 });
 
 /* ============================================================
@@ -377,6 +379,16 @@ function initPlansBoard() {
     { id: "2", text: "Sitting in absolute silence 🍿", color: "note-pink" }
   ]);
 
+  // Migrate legacy Tailwind classes to new vanilla classes
+  const legacyMap = {
+    "bg-[#FFF9C4]": "note-yellow",
+    "bg-[#FCE4EC]": "note-pink",
+    "bg-[#E1BEE7]": "note-purple",
+    "bg-[#E8F5E9]": "note-green",
+    "bg-[#FFF0F5]": "note-blush"
+  };
+  notes = notes.map(n => ({ ...n, color: legacyMap[n.color] || n.color }));
+
   function render() {
     root.innerHTML = `
       <div class="plans-pin left">
@@ -459,12 +471,12 @@ function processImage(file) {
 
 function loadJSON(key, fallback) {
   try { const d = localStorage.getItem(key); return d ? JSON.parse(d) : fallback; }
-  catch { return fallback; }
+  catch (e) { return fallback; }
 }
 
 function saveJSON(key, data) {
   try { localStorage.setItem(key, JSON.stringify(data)); }
-  catch { alert("Storage limit reached! Please delete some older items."); }
+  catch (e) { alert("Storage limit reached! Please delete some older items."); }
 }
 
 function esc(s) {
